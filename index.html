@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Harvey - BUT Informatique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e5e5e5;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.5s forwards;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.7s forwards;
+            color: #b0b0b0;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: slideUp 1s ease 0.9s forwards;
+            color: #888888;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: slideUp 1s ease 1.1s forwards;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section générale */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ffffff;
+            position: relative;
+            font-weight: 600;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffffff, #888888);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333333, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: #ffffff;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #b0b0b0;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .skill-category h3 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .project-image {
+            height: 250px;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-image::before {
+            transform: translateX(100%);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-content h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .project-content p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.6rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #ffffff;
+        }
+
+        /* Competences BUT Section */
+        .competences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .competence-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .competence-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .competence-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .competence-card h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .competence-card p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .competence-examples {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #ffffff;
+        }
+
+        .competence-examples strong {
+            color: #ffffff;
+        }
+
+        /* Reflexion Section */
+        .reflexion-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .reflexion-block {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .reflexion-block h3 {
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .reflexion-block p {
+            color: #b0b0b0;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .reflexion-block ul {
+            color: #b0b0b0;
+            padding-left: 2rem;
+        }
+
+        .reflexion-block li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-item h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item p {
+            color: #b0b0b0;
+        }
+
+        .contact-item a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #cccccc;
+        }
+
+        .download-cv {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .download-cv:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 2rem 0;
+            text-align: center;
+            color: #888888;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .profile-pic {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations d'entrée */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media print {
+
+            nav,
+            .hero,
+            .contact-item a[href^="http"]::after {
+                display: none !important;
+            }
+
+            body {
+                color: #000;
+                background: #fff;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#home" class="logo">Harvey Wonga</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Accueil</a></li>
+                    <li><a href="#about">À propos</a></li>
+                    <li><a href="#skills">Compétences Techniques</a></li>
+                    <li><a href="#projects">Projets</a></li>
+                    <li><a href="#competences">Compétences BUT</a></li>
+                    <li><a href="#reflexion">Réflexion</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Harvey Wonga</h1>
+            <p class="subtitle">Étudiant en BUT Informatique</p>
+            <p>Parcours Réalisation d'Applications : conception, développement, validation</p>
+            <a class="cta-button" href="#projects">Découvrir mes projets</a>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="fade-in">À propos de moi</h2>
+            <div class="about-content fade-in">
+                <div class="about-image">
+                    <div class="profile-pic">👨‍💻</div>
+                </div>
+                <div class="about-text">
+                    <p>
+                        Passionné par l'informatique et le développement d'applications, je suis actuellement en 3ème
+                        année
+                        de BUT Informatique avec une spécialisation en réalisation d'applications. Mon parcours m'a
+                        permis
+                        de développer une expertise technique solide et une approche méthodologique rigoureuse.
+                    </p>
+                    <p>
+                        À travers mes projets académiques comme <strong>HelPmr</strong> et <strong>Natyres</strong>,
+                        j'ai acquis une
+                        expérience concrète en développement web, mobile, bases de données, et gestion de projet.
+                        Je maîtrise l'ensemble du cycle de développement logiciel, de l'analyse des besoins à la mise en
+                        production.
+                    </p>
+                    <p>
+                        Mon objectif professionnel est de devenir développeur d'applications fullstack, en alliant
+                        compétences techniques, créativité et sens du travail en équipe pour créer des solutions
+                        innovantes
+                        répondant aux besoins des utilisateurs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="fade-in">Mes Compétences Techniques</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-category">
+                    <h3>🚀 Développement Web</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express</span>
+                        <span class="skill-tag">PHP</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>📱 Développement Mobile & Desktop</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React Native</span>
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C++</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>💾 Bases de Données & Backend</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">SQLite</span>
+                        <span class="skill-tag">API REST</span>
+                        <span class="skill-tag">GraphQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>⚙️ DevOps & Outils</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">GitLab CI</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Postman</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>🎯 Méthodologies & Soft Skills</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Agile/Scrum</span>
+                        <span class="skill-tag">UML</span>
+                        <span class="skill-tag">Tests unitaires</span>
+                        <span class="skill-tag">Gestion de projet</span>
+                        <span class="skill-tag">Travail d'équipe</span>
+                        <span class="skill-tag">Communication</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="fade-in">Mes Projets Phares</h2>
+            <div class="projects-grid fade-in">
+                <div class="project-card">
+                    <div class="project-image">
+                        🏥
+                    </div>
+                    <div class="project-content">
+                        <h3>HelPmr - Application de Gestion Médicale</h3>
+                        <p>
+                            Application web complète pour la gestion de dossiers médicaux avec authentification
+                            sécurisée,
+                            gestion des patients, rendez-vous et données médicales. Interface responsive et intuitive
+                            respectant les normes de confidentialité médicale.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">MySQL</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">CSS3</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📁 Code GitHub</a>
+                            <a href="#" class="project-link">🚀 Démonstration</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        🌱
+                    </div>
+                    <div class="project-content">
+                        <h3>Natyres - Plateforme Environnementale</h3>
+                        <p>
+                            Plateforme web dédiée à la sensibilisation environnementale avec système de publication
+                            d'articles, cartographie interactive des initiatives écologiques, et outils de collaboration
+                            pour les actions environnementales locales.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Vue.js</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">Laravel</span>
+                            <span class="tech-tag">PostgreSQL</span>
+                            <span class="tech-tag">Leaflet</span>
+                            <span class="tech-tag">Bootstrap</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📁 Code GitHub</a>
+                            <a href="#" class="project-link">🌐 Site Web</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        📱
+                    </div>
+                    <div class="project-content">
+                        <h3>Portfolio Interactif</h3>
+                        <p>
+                            Site web portfolio responsive et moderne présentant mes compétences et projets,
+                            développé avec les dernières technologies web. Design adaptatif et optimisé
+                            pour tous les appareils.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Responsive</span>
+                            <span class="tech-tag">Animations</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">📁 Code Source</a>
+                            <a href="#" class="project-link">👀 Voir le Site</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="competences">
+        <div class="container">
+            <h2 class="fade-in">Compétences BUT Informatique</h2>
+            <div class="competences-grid fade-in">
+                <div class="competence-card">
+                    <div class="competence-number">01</div>
+                    <h3>Réaliser un développement d'application</h3>
+                    <p>Conception, développement et validation d'applications complexes sur différents supports (web,
+                        mobile, desktop).</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Développement fullstack de HelPmr avec React/Node.js,
+                        création d'interfaces utilisateur intuitives, implémentation d'APIs REST sécurisées.
+                    </div>
+                </div>
+
+                <div class="competence-card">
+                    <div class="competence-number">02</div>
+                    <h3>Optimiser des applications</h3>
+                    <p>Amélioration des performances, optimisation algorithmique et limitation de l'impact
+                        environnemental des applications.</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Optimisation des requêtes SQL dans Natyres, mise en place
+                        de cache pour améliorer les temps de réponse, refactorisation de code pour réduire la
+                        complexité.
+                    </div>
+                </div>
+
+                <div class="competence-card">
+                    <div class="competence-number">03</div>
+                    <h3>Administrer des systèmes informatiques</h3>
+                    <p>Déploiement et administration de systèmes communicants, sécurisation des applications et gestion
+                        d'infrastructures.</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Déploiement avec Docker et GitLab CI, configuration de
+                        serveurs Linux, mise en place de HTTPS et sécurisation des accès.
+                    </div>
+                </div>
+
+                <div class="competence-card">
+                    <div class="competence-number">04</div>
+                    <h3>Gérer des données</h3>
+                    <p>Conception et optimisation de bases de données, gestion de la sécurité et de l'intégrité des
+                        données.</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Modélisation de bases de données relationnelles pour
+                        HelPmr, optimisation des performances avec indexation, respect du RGPD.
+                    </div>
+                </div>
+
+                <div class="competence-card">
+                    <div class="competence-number">05</div>
+                    <h3>Conduire un projet</h3>
+                    <p>Application de méthodologies agiles, gestion des besoins clients et pilotage de projets
+                        informatiques.</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Gestion de projet Natyres avec méthode Scrum, analyse des
+                        besoins utilisateurs, planification et suivi des livraisons.
+                    </div>
+                </div>
+
+                <div class="competence-card">
+                    <div class="competence-number">06</div>
+                    <h3>Travailler en équipe informatique</h3>
+                    <p>Collaboration efficace, communication technique et management d'équipes de développement.</p>
+                    <div class="competence-examples">
+                        <strong>Exemples concrets :</strong> Travail collaboratif sur Git, code reviews, documentation
+                        technique, présentation de solutions aux parties prenantes.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="preuves">
+        <div class="container">
+            <h2 class="fade-in">Preuves et traces</h2>
+
+            <div class="filters" style="display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px;">
+                <select id="filtreCompetence">
+                    <option value="">Toutes compétences</option>
+                    <option value="C1">C1 Réaliser</option>
+                    <option value="C2">C2 Optimiser</option>
+                    <option value="C3C4">C3/C4 Administrer systèmes et données</option>
+                </select>
+                <select id="filtreAC">
+                    <option value="">Tous AC</option>
+                    <option value="AC1">AC1</option>
+                    <option value="AC2">AC2</option>
+                    <option value="AC3">AC3</option>
+                    <option value="AC4">AC4</option>
+                </select>
+                <input id="recherchePreuve" type="search" placeholder="Recherche mot clé"
+                    style="flex:1;min-width:220px;">
+            </div>
+
+            <div id="galeriePreuves" class="proofs-grid"
+                style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;"></div>
+
+            <template id="tplPreuve">
+                <figure class="preuve-card"
+                    style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;overflow:hidden;">
+                    <div class="preuve-thumb"
+                        style="height:150px;background:#141414;display:flex;align-items:center;justify-content:center;position:relative;">
+                        <img alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+                        <span class="badge"
+                            style="position:absolute;top:8px;left:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:2px 8px;border-radius:999px;font-size:12px;"></span>
+                    </div>
+                    <figcaption style="padding:10px 12px;">
+                        <div class="meta" style="font-size:12px;color:#b0b0b0;margin-bottom:6px;"></div>
+                        <div class="titre" style="color:#e5e5e5;font-weight:600;margin-bottom:6px;"></div>
+                        <div class="liens" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+                    </figcaption>
+                </figure>
+            </template>
+        </div>
+    </section>
+
+    <section class="section" id="reflexion">
+        <div class="container">
+            <h2 class="fade-in">Analyse Auto-Réflexive</h2>
+            <div class="reflexion-content fade-in">
+                <div class="reflexion-block">
+                    <h3>💡 Apprentissages Critiques</h3>
+                    <p>
+                        Au cours de ma formation en BUT Informatique, plusieurs apprentissages se sont révélés
+                        déterminants
+                        pour mon développement professionnel. La maîtrise du cycle complet de développement logiciel,
+                        depuis l'analyse des besoins jusqu'à la maintenance, constitue probablement l'acquis le plus
+                        critique.
+                    </p>
+                    <p>
+                        Le projet <strong>HelPmr</strong> m'a particulièrement marqué car il m'a confronté à des enjeux
+                        réels
+                        de sécurité et de confidentialité dans le domaine médical. Cette expérience m'a appris
+                        l'importance
+                        de la rigueur technique et du respect des normes sectorielles.
+                    </p>
+                </div>
+
+                <div class="reflexion-block">
+                    <h3>📈 Évolution et Progression</h3>
+                    <p>Ma progression s'articule autour de trois axes majeurs :</p>
+                    <ul>
+                        <li><strong>Technique :</strong> Évolution d'un niveau débutant en programmation vers la
+                            maîtrise
+                            de stacks complètes (MERN, LAMP). Apprentissage progressif des bonnes pratiques de
+                            développement.</li>
+                        <li><strong>Méthodologique :</strong> Intégration des méthodes agiles, amélioration de la
+                            gestion
+                            de projet et développement de compétences en tests et débogage.</li>
+                        <li><strong>Relationnel :</strong> Renforcement des capacités de travail en équipe, amélioration
+                            de la communication technique et développement du leadership sur les projets.</li>
+                    </ul>
+                </div>
+
+                <div class="reflexion-block">
+                    <h3>💪 Points Forts Identifiés</h3>
+                    <p>
+                        Mes principales forces résident dans ma capacité d'adaptation aux nouvelles technologies,
+                        mon approche méthodique de résolution de problèmes et mon sens du travail collaboratif.
+                        Le projet <strong>Natyres</strong> a révélé mes compétences en gestion de projet et ma capacité
+                        à coordonner une équipe vers un objectif commun.
+                    </p>
+                    <p>
+                        Je considère également ma curiosité technique comme un atout : elle me pousse à explorer
+                        continuellement de nouveaux outils et frameworks, enrichissant constamment ma palette de
+                        compétences.
+                    </p>
+                </div>
+
+                <div class="reflexion-block">
+                    <h3>🎯 Axes d'Amélioration</h3>
+                    <p>
+                        Plusieurs domaines méritent encore mon attention pour parfaire ma formation. L'approfondissement
+                        des architectures cloud et des technologies de conteneurisation représente un enjeu majeur
+                        pour mon employabilité future.
+                    </p>
+                    <p>
+                        Je souhaite également renforcer mes compétences en intelligence artificielle et machine
+                        learning,
+                        domaines en forte croissance dans l'écosystème informatique. La maîtrise des enjeux de
+                        cybersécurité
+                        constitue également une priorité dans un contexte où la protection des données devient cruciale.
+                    </p>
+                </div>
+
+                <div class="reflexion-block">
+                    <h3>🚀 Vision Professionnelle</h3>
+                    <p>
+                        Cette formation m'a préparé à intégrer le marché du travail en tant que développeur
+                        d'applications
+                        fullstack. Mon objectif immédiat est de rejoindre une équipe de développement dans une
+                        entreprise
+                        innovante où je pourrai contribuer à des projets impactants tout en continuant à apprendre.
+                    </p>
+                    <p>
+                        À moyen terme, je souhaite évoluer vers un rôle de tech lead, combinant expertise technique et
+                        capacités managériales pour guider des équipes vers l'excellence technique. Cette ambition
+                        s'appuie
+                        sur les compétences de collaboration et de gestion de projet développées durant ma formation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="fade-in">Me Contacter</h2>
+            <div class="contact-content fade-in">
+                <p style="color: #b0b0b0; font-size: 1.2rem; margin-bottom: 2rem;">
+                    Intéressé par mon profil ? N'hésitez pas à me contacter pour discuter d'opportunités
+                    professionnelles ou de collaborations sur des projets innovants !
+                </p>
+
+                <a href="#" class="download-cv">📄 Télécharger mon CV</a>
+
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📧 Email</h3>
+                        <p><a href="mailto:wongaharvey@gmail.com">wongaharvey@gmail.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>💼 LinkedIn</h3>
+                        <p><a href="https://linkedin.com/in/harveywonga" target="_blank">linkedin.com/in/harveywonga</a>
+                        </p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>💻 GitHub</h3>
+                        <p><a href="https://github.com/harveyw18" target="_blank">github.com/harveyw18</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📍 Localisation</h3>
+                        <p>Île-de-France, France</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Harvey Wonga. Tous droits réservés. | Portfolio BUT Informatique - Réalisation d'Applications</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Compte pour la nav fixe
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        const PREUVES = [
+            {
+                id: "p1",
+                titre: "Spécifications HelPmr v1",
+                competence: "C1",   // Réaliser
+                ac: "AC1",          // Élaborer et implémenter les spécifications
+                projet: "HelPmr",
+                mots: ["specs", "user stories", "tests"],
+                vignette: "assets/proofs/helpmmr_specs.png",
+                liens: [
+                    { label: "PDF", url: "assets/docs/helpmmr_spec.pdf" },
+                    { label: "Repo", url: "https://github.com/harveyw18/helpmr" }
+                ]
+            },
+            {
+                id: "p2",
+                titre: "Jeu de tests et CI HelPmr",
+                competence: "C1",
+                ac: "AC3",          // Qualité, tests
+                projet: "HelPmr",
+                mots: ["jest", "pipeline", "coverage"],
+                vignette: "assets/proofs/helpmmr_tests.png",
+                liens: [
+                    { label: "Pipeline", url: "https://gitlab.com/.../pipelines/xxxx" }
+                ]
+            },
+            {
+                id: "p3",
+                titre: "Profiling requêtes Natyres",
+                competence: "C2",   // Optimiser
+                ac: "AC2",          // Comparer algos, justifier
+                projet: "Natyres",
+                mots: ["profiling", "index", "EXPLAIN"],
+                vignette: "assets/proofs/natyres_explain.png",
+                liens: [
+                    { label: "Note technique", url: "assets/docs/natyres_optim_sql.pdf" }
+                ]
+            },
+            {
+                id: "p4",
+                titre: "Modèle relationnel HelPmr",
+                competence: "C3C4", // Administrer systèmes et données
+                ac: "AC1",          // Concevoir et mettre en place une base
+                projet: "HelPmr",
+                mots: ["schema", "rgpd", "intégrité"],
+                vignette: "assets/proofs/helpmmr_schema.png",
+                liens: [
+                    { label: "Schéma PNG", url: "assets/proofs/helpmmr_schema.png" }
+                ]
+            },
+            {
+                id: "p5",
+                titre: "Déploiement Docker + HTTPS",
+                competence: "C3C4",
+                ac: "AC3",          // Déployer services en réseau
+                projet: "Natyres",
+                mots: ["docker", "nginx", "tls"],
+                vignette: "assets/proofs/natyres_docker.png",
+                liens: [
+                    { label: "Compose", url: "https://github.com/harveyw18/natyres/blob/main/docker-compose.yml" }
+                ]
+            }
+        ];
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Active nav link highlighting
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.project-card, .competence-card, .skill-category').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Typing effect for hero title (bonus)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when page loads
+        window.addEventListener('load', function () {
+            const heroTitle = document.querySelector('.hero h1');
+            if (heroTitle) {
+                const originalText = heroTitle.textContent;
+                setTimeout(() => {
+                    typeWriter(heroTitle, originalText, 150);
+                }, 1000);
+            }
+        });
+
+        function createEl(tag, attrs = {}, ...kids) {
+            const n = document.createElement(tag);
+            Object.entries(attrs).forEach(([k, v]) => {
+                if (k === "class") n.className = v;
+                else if (k === "html") n.innerHTML = v;
+                else n.setAttribute(k, v);
+            });
+            kids.forEach(k => n.append(k));
+            return n;
+        }
+
+        function renderPreuve(p) {
+            const tpl = document.getElementById("tplPreuve");
+            const node = tpl.content.cloneNode(true);
+            const img = node.querySelector("img");
+            const badge = node.querySelector(".badge");
+            const meta = node.querySelector(".meta");
+            const titre = node.querySelector(".titre");
+            const liens = node.querySelector(".liens");
+
+            img.src = p.vignette;
+            img.alt = p.titre;
+            badge.textContent = `${p.competence} ${p.ac}`;
+            meta.textContent = p.projet;
+            titre.textContent = p.titre;
+
+            (p.liens || []).forEach(l => {
+                const a = createEl("a", { href: l.url, target: "_blank", rel: "noopener", class: "project-link" }, l.label);
+                liens.appendChild(a);
+            });
+
+            // Lightbox simple
+            img.style.cursor = "zoom-in";
+            img.addEventListener("click", () => window.open(p.vignette, "_blank"));
+
+            return node;
+        }
+
+        function initPreuves() {
+            const root = document.getElementById("galeriePreuves");
+            const selC = document.getElementById("filtreCompetence");
+            const selA = document.getElementById("filtreAC");
+            const search = document.getElementById("recherchePreuve");
+
+            function render() {
+                root.innerHTML = "";
+                const c = selC.value;
+                const a = selA.value.toUpperCase();
+                const q = search.value.trim().toLowerCase();
+
+                PREUVES.filter(p => {
+                    const okC = !c || p.competence === c;
+                    const okA = !a || p.ac === a;
+                    const hay = (p.titre + " " + p.projet + " " + (p.mots || []).join(" ")).toLowerCase();
+                    const okQ = !q || hay.includes(q);
+                    return okC && okA && okQ;
+                }).forEach(p => root.appendChild(renderPreuve(p)));
+            }
+
+            selC.addEventListener("change", render);
+            selA.addEventListener("change", render);
+            search.addEventListener("input", render);
+            render();
+        }
+
+        window.addEventListener("load", () => {
+            initPreuves();
+        });
+
+    </script>
+</body>
+
+</html>
